@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tax Calculator</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<h1>Tax Calculator</h1>
+		<hr class="featurette-divider" />
+		<div class="row-fluid">
+			<div class="span7">
+				<h3>Discover what NC's tax reform options mean for you</h3>
+				<p>Description goes here</p>
+				<div class="accordion" id="accordion2">
+				  <div class="accordion-group">
+				    <div class="accordion-heading">
+				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+				        Current Tax Rates
+				      </a>
+				    </div>
+				    <div id="collapseOne" class="accordion-body collapse in">
+				      <div class="accordion-inner">
+				        Anim pariatur cliche...
+				      </div>
+				    </div>
+				  </div>
+				  <div class="accordion-group">
+				    <div class="accordion-heading">
+				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+				        No Income Tax, Increased Sales Tax
+				      </a>
+				    </div>
+				    <div id="collapseTwo" class="accordion-body collapse">
+				      <div class="accordion-inner">
+				        Anim pariatur cliche...
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	$(window).load(function (){
+		$('#collapseOne').collapse('hide');
+	});
+
+	$('#accordion2').collapse({
+		toggle: false,
+		parent: true
+	});
+
+	// if ($('a.btn').hasClass('active')) {
+	// 	$('a.btn').click(function (){ 
+	// 	if ($(this).not('active')){
+	// 		$(this).addClass('btn-success');
+	// 	};
+	// })};
+	
+	</script>
+</body>
+</html>
