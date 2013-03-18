@@ -29,14 +29,13 @@ body{
   .fixed {
         position:fixed;
   }
- /* .gray-box{
+  /*.gray-box{
       background-color:#999;
-  }
+  }*/
   
   .spacer{
-      margin-top:1.5em;
-      
-  }*/
+      margin:1.5em 0;   
+  }
   
   .container{
       width:1170px;
@@ -48,6 +47,8 @@ body{
 
   .btn-large {
     width: 100%;
+    padding: 25px;
+    margin:.5em 0;
   }
 
   button:active {
@@ -61,4 +62,10 @@ body{
     display: block;
     white-space: normal;
   }
+
+  input {
+    font-size: 28px;
+    width: 100%;
+  }
+
 

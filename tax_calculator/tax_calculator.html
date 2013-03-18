@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Tax Calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
@@ -20,7 +21,7 @@
 				<div class="accordion" id="accordion2">
 				  <div class="accordion-group">
 				    <div class="accordion-heading">
-				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+				      <a id="option1" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
 				        Current Tax Rates
 				      </a>
 				    </div>
@@ -32,7 +33,7 @@
 				  </div>
 				  <div class="accordion-group">
 				    <div class="accordion-heading">
-				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+				      <a id="option2" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
 				        No Income Tax, Increased Sales Tax
 				      </a>
 				    </div>
@@ -42,6 +43,83 @@
 				      </div>
 				    </div>
 				  </div>
+				  <div class="accordion-group">
+				    <div class="accordion-heading">
+				      <a id="option3" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+				        No Sales Tax, Increased Income Tax
+				      </a>
+				    </div>
+				    <div id="collapseThree" class="accordion-body collapse">
+				      <div class="accordion-inner">
+				        Anim pariatur cliche...
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<div class="calculator well">
+					<h2 id="question1">1. How do you normally file taxes?</h2>
+					<br>
+					<div class="row-fluid">
+						<div class="span6">
+							<button class="btn btn-large btn-block btn-success" type="button" style="padding: 25px;">Single<i class="icon-ok icon-white"></i></button>
+						</div>
+						<div class="span6">
+							<button class="btn btn-large btn-block" type="button">Head of Household</button>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<button class="btn btn-large btn-block" type="button">Married filing jointly/Qualifying widow(er)</button>
+						</div>
+						<div class="span6">
+							<button class="btn btn-large btn-block" type="button">Married filing separately</button>
+						</div>
+					</div>
+					<h2 id="question2">2. How much do you make per year?</h2>
+					<br>
+					<form>
+					  <fieldset>
+					    <div class="input-prepend">
+					  		<span class="add-on">$</span>
+					    	<input class="span8" type="number" placeholder="Average: $42,000" min="0" >
+					    </div>
+					  </fieldset>
+					</form>
+					<h2 id="question3">3. On average, how much do you spend on groceries in a week?</h2>
+					<br>
+					<form>
+					  <fieldset>
+					    <div class="input-prepend">
+					  		<span class="add-on">$</span>
+					    	<input class="span8" type="number" placeholder="Average: $100" min="0" >
+					    </div>
+					  </fieldset>
+					</form>
+					<h2 id="question4">4. On average, how much do you spend on taxed items per week?</h2>
+					<br>
+					<form>
+					  <fieldset>
+					    <div class="input-prepend">
+					  		<span class="add-on">$</span>
+					    	<input class="span8" type="number" placeholder="Average: $50" min="0" >
+					    </div>
+					  </fieldset>
+					</form>
+					<h2 id="question5">5. On average, how much do you spend on taxed services in a week?</h2> 
+					<br>
+					<form>
+					  <fieldset>
+					  	<div class="input-prepend">
+					  		<span class="add-on">$</span>
+					    	<input class="span8" type="number" placeholder="Average: $200" min="0">
+					    </div>
+					  </fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="span5">
+				<div class="well">
+					graphs and visuals go here?
 				</div>
 			</div>
 		</div>
@@ -52,10 +130,30 @@
 		$('#collapseOne').collapse('hide');
 	});
 
-	$('#accordion2').collapse({
-		toggle: false,
-		parent: true
+	$("#option1").click(function (){
+		$('#question5').toggleClass('muted');
 	});
+
+	$("#option2").click(function (){
+		$('#question2').toggleClass('muted');
+	});
+
+	$("#option3").click(function (){
+		if ($('#question3').not('.muted')) {
+			$('#question3').addClass('muted');
+		}else{
+			$('#question3').removeClass('muted');
+		};
+		
+		$('#question4').toggleClass('muted');
+		$('#question5').toggleClass('muted');
+
+	});
+
+	// $('#accordion2').collapse({
+	// 	toggle: false,
+	// 	parent: true
+	// });
 
 	// if ($('a.btn').hasClass('active')) {
 	// 	$('a.btn').click(function (){ 
