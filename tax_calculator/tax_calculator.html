@@ -18,44 +18,13 @@
 			<div class="span7">
 				<h3>Discover what NC's tax reform options mean for you</h3>
 				<p>Description goes here</p>
-				<div class="accordion" id="accordion2">
-				  <div class="accordion-group">
-				    <div class="accordion-heading">
-				      <a id="option1" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-				        Current Tax Rates
-				      </a>
-				    </div>
-				    <div id="collapseOne" class="accordion-body collapse in">
-				      <div class="accordion-inner">
-				        Anim pariatur cliche...
-				      </div>
-				    </div>
-				  </div>
-				  <div class="accordion-group">
-				    <div class="accordion-heading">
-				      <a id="option2" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-				        No Income Tax, Increased Sales Tax
-				      </a>
-				    </div>
-				    <div id="collapseTwo" class="accordion-body collapse">
-				      <div class="accordion-inner">
-				        Anim pariatur cliche...
-				      </div>
-				    </div>
-				  </div>
-				  <div class="accordion-group">
-				    <div class="accordion-heading">
-				      <a id="option3" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-				        No Sales Tax, Increased Income Tax
-				      </a>
-				    </div>
-				    <div id="collapseThree" class="accordion-body collapse">
-				      <div class="accordion-inner">
-				        Anim pariatur cliche...
-				      </div>
-				    </div>
-				  </div>
-				</div>
+				<button type="button" id="choice1" class="btn btn-large">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
+				<div id="detail1" class="hide" style="font-size:21px;">Description 1</div>
+				<button type="button" id="choice2" class="btn btn-large">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
+				<div id="detail2" class="hide" style="font-size:21px;">Description 2</div>
+				<button type="button" id="choice3" class="btn btn-large">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
+				<div id="detail3" class="hide" style="font-size:21px;">Description 3</div>
+				<br>
 				<div class="calculator well">
 					<h2 id="question1">1. How do you normally file taxes?</h2>
 					<br>
@@ -126,41 +95,43 @@
 	</div>
 
 	<script>
-	$(window).load(function (){
-		$('#collapseOne').collapse('hide');
-	});
-
-	$("#option1").click(function (){
-		$('#question5').toggleClass('muted');
-	});
-
-	$("#option2").click(function (){
-		$('#question2').toggleClass('muted');
-	});
-
-	$("#option3").click(function (){
-		if ($('#question3').not('.muted')) {
-			$('#question3').addClass('muted');
-		}else{
-			$('#question3').removeClass('muted');
+	$('#choice1').click(function() {
+		if ($('#choice1').not('.active')) {
+			$('#choice1').toggleClass('btn-success');
+			$('#choice2, #choice3').removeClass('btn-success');
+			$('#choice1 i').toggleClass('hide');
+			$('#choice2 i, #choice3 i').addClass('hide');
+			$('#detail1').toggleClass('hide');
+			$('#detail2, #detail3').addClass('hide');
+			$('#question5').toggleClass('muted');
 		};
-		
-		$('#question4').toggleClass('muted');
-		$('#question5').toggleClass('muted');
-
 	});
 
-	// $('#accordion2').collapse({
-	// 	toggle: false,
-	// 	parent: true
-	// });
+	$('#choice2').click(function() {
+		if ($('#choice1').not('.active')) {
+			$('#choice2').toggleClass('btn-success');
+			$('#choice1, #choice3').removeClass('btn-success');
+			$('#choice2 i').toggleClass('hide');
+			$('#choice1 i, #choice3 i').addClass('hide');
+			$('#detail2').toggleClass('hide');
+			$('#detail1, #detail3').addClass('hide');	
+			$('#question2').toggleClass('muted');
+		};
+	});
 
-	// if ($('a.btn').hasClass('active')) {
-	// 	$('a.btn').click(function (){ 
-	// 	if ($(this).not('active')){
-	// 		$(this).addClass('btn-success');
-	// 	};
-	// })};
+	$('#choice3').click(function() {
+		if ($('#choice1').not('.active')) {
+			$('#choice1, #choice2').removeClass('btn-success');
+			$('#choice3').toggleClass('btn-success');
+			$('#choice1 i, #choice2 i').addClass('hide');
+			$('#choice3 i').toggleClass('hide');
+			$('#detail1, #detail2').addClass('hide');
+			$('#detail3').toggleClass('hide');	
+			$('#question3').toggleClass('muted');
+			$('#question4').toggleClass('muted');
+			$('#question5').toggleClass('muted');
+			};
+		});
 	
 	</script>
 </body>
