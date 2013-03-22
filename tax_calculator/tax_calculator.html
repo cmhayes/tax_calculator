@@ -19,16 +19,16 @@
 				<h3>Discover what NC's tax reform options mean for you</h3>
 				<p>Description goes here</p>
 				<div class="btn-group" data-toggle="buttons-radio">
-				<button type="button" id="choice1" class="btn btn-large" data-toggle="button">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
-				<div id="detail1" class="hide" style="font-size:21px;">Description 1</div>
-				<button type="button" id="choice2" class="btn btn-large" data-toggle="button">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
-				<div id="detail2" class="hide" style="font-size:21px;">Description 2</div>
-				<button type="button" id="choice3" class="btn btn-large data-toggle="button"">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
-				<div id="detail3" class="hide" style="font-size:21px;">Description 3</div>
-				<br>
+					<button type="button" id="choice1" class="btn btn-large" data-toggle="button">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
+					<div id="detail1" class="hide" style="font-size:21px;">Description 1</div>
+					<button type="button" id="choice2" class="btn btn-large" data-toggle="button">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
+					<div id="detail2" class="hide" style="font-size:21px;">Description 2</div>
+					<button type="button" id="choice3" class="btn btn-large data-toggle="button"">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
+					<div id="detail3" class="hide" style="font-size:21px;">Description 3</div>
+					<br>
 				</div>
 				<div id="formula" class="well"><h4>What you pay:</h4>
-					<h3 id="formula_displayed">[.07(income-12750)+765] + [.02(12*100)] + [.0675(50)]=</h3>
+					<h3 id="formula_displayed"><span id="formula_income"></span></h3>
 					<h1 id="result_displayed" class="">2839.88</h1>
 				</div>
 				<div class="calculator well">
@@ -54,41 +54,41 @@
 					</div>
 					<h2 id="question2">2. How much do you make per year?</h2>
 					<br>
-					<form>
+					<form onsubmit="return false">
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input id="input2" class="span8" type="number" placeholder="Average: $42,000" min="0" onKeyPress="return disableEnterKey(event)" onclick=income.value>
+					    	<input id="input2" class="span8" type="number" placeholder="Average: $42,000" min="0">
 					    </div>
 					  </fieldset>
 					</form>
 					<h2 id="question3">3. On average, how much do you spend on groceries in a week?</h2>
 					<br>
-					<form>
+					<form onsubmit="return false">
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input id="input3" class="span8" type="number" placeholder="Average: $100" min="0" onKeyPress="return disableEnterKey(event)">
+					    	<input id="input3" class="span8" type="number" placeholder="Average: $100" min="0">
 					    </div>
 					  </fieldset>
 					</form>
 					<h2 id="question4">4. On average, how much do you spend on taxed items per week?</h2>
 					<br>
-					<form>
+					<form onsubmit="return false">
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input id="input4" class="span8" type="number" placeholder="Average: $50" min="0" onKeyPress="return disableEnterKey(event)">
+					    	<input id="input4" class="span8" type="number" placeholder="Average: $50" min="0">
 					    </div>
 					  </fieldset>
 					</form>
 					<h2 id="question5">5. On average, how much do you spend on taxed services in a week?</h2> 
 					<br>
-					<form>
+					<form onsubmit="return false">
 					  <fieldset>
 					  	<div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input id="input5" class="span8" type="number" placeholder="Average: $200" min="0" onKeyPress="return disableEnterKey(event)">
+					    	<input id="input5" class="span8" type="number" placeholder="Average: $200" min="0">
 					    </div>
 					  </fieldset>
 					</form>
@@ -103,27 +103,16 @@
 	</div>
 
 	<script>
-	function setNumbers {
-		var calculator = '[.07(' +income+ '-' +taxBracket+ ')+' +taxBracketRemainder+ '] + [.02]';
-		var taxRate = .07;
-		var income = document.getElementById('input2');
-
-	}
-	
-
-	function disableEnterKey(e) {
-	     var key;
-	     if(window.event)
-	          key = window.event.keyCode;     //IE
-	     else
-	          key = e.which;     //firefox
-	     if(key == 13)
-	          return false;
-	     else
-	          return true;
-	}
-
-	$('#choice1').click(function() {
+	var income;
+	var income_tax_rate;
+	var income_tax_constant;
+	var sales_tax;
+	var grocery_tax;
+	var grocery_bill;
+	var spent_on_taxable_items;
+	var spent_on_taxable_services;
+		
+	$('#choice').click(function() {
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#choice2, #choice3').removeClass('btn-success');
@@ -170,12 +159,23 @@
 		});
 
 	$('#tax1').click(function() {
+		if (income > 60000){
+			income_tax_rate = .0775;
+			income_tax_constant = 4072.5;
+		}else if (income > 12750 && income >=60000) {
+			income_tax_rate = .07;
+			income_tax_constant = 765;
+		}else{
+			income_tax_rate = .06;
+		};
+
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax2, #tax3, #tax4').removeClass('btn-success');
 			$('#tax1 i').removeClass('hide');
 			$('#tax2 i, #tax3 i, #tax4 i').addClass('hide');
-		}
+		};
+
 	});
 
 	$('#tax2').click(function() {
@@ -197,12 +197,22 @@
 	});
 
 	$('#tax4').click(function() {
+
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax1, #tax2, #tax3').removeClass('btn-success');
 			$('#tax4 i').removeClass('hide');
 			$('#tax1 i, #tax2 i, #tax3 i').addClass('hide');
 		}
+	});
+
+	$('input').keyup(function(){ 
+		$('#formula_income').empty();
+		income = $('#input2').val();
+		grocery_bill = $('#input3').val();
+		spent_on_taxable_items = $('#input4').val();
+		spent_on_taxable_services = $('#input5').val();
+		$('#formula_income').append('['+income_tax_rate+'('+income+ ' + ' +grocery_bill+ ')]');
 	});
 	
 	</script>
