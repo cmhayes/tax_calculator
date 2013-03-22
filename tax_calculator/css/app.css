@@ -68,4 +68,7 @@ body{
     width: 100%;
   }
 
+  #result_displayed {
+    color: red;
+  }
 

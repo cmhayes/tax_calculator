@@ -18,31 +18,39 @@
 			<div class="span7">
 				<h3>Discover what NC's tax reform options mean for you</h3>
 				<p>Description goes here</p>
-				<button type="button" id="choice1" class="btn btn-large">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
+				<div class="btn-group" data-toggle="buttons-radio">
+				<button type="button" id="choice1" class="btn btn-large" data-toggle="button">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
 				<div id="detail1" class="hide" style="font-size:21px;">Description 1</div>
-				<button type="button" id="choice2" class="btn btn-large">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
+				<button type="button" id="choice2" class="btn btn-large" data-toggle="button">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
 				<div id="detail2" class="hide" style="font-size:21px;">Description 2</div>
-				<button type="button" id="choice3" class="btn btn-large">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
+				<button type="button" id="choice3" class="btn btn-large data-toggle="button"">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
 				<div id="detail3" class="hide" style="font-size:21px;">Description 3</div>
 				<br>
+				</div>
+				<div id="formula" class="well"><h4>What you pay:</h4>
+					<h3 id="formula_displayed">[.07(income-12750)+765] + [.02(12*100)] + [.0675(50)]=</h3>
+					<h1 id="result_displayed" class="">2839.88</h1>
+				</div>
 				<div class="calculator well">
 					<h2 id="question1">1. How do you normally file taxes?</h2>
 					<br>
+					<div class="btn-group" data-toggle="buttons-radio">
 					<div class="row-fluid">
 						<div class="span6">
-							<button class="btn btn-large btn-block btn-success" type="button" style="padding: 25px;">Single<i class="icon-ok icon-white"></i></button>
+							<button id="tax1" class="btn btn-large btn-block" data-toggle="button" style="padding: 25px;">Single<i class="icon-ok icon-white hide"></i></button>
 						</div>
 						<div class="span6">
-							<button class="btn btn-large btn-block" type="button">Head of Household</button>
+							<button id="tax2" class="btn btn-large btn-block" data-toggle="button" type="radio">Head of Household<i class="icon-ok icon-white hide"></i></button>
 						</div>
 					</div>
 					<div class="row-fluid">
 						<div class="span6">
-							<button class="btn btn-large btn-block" type="button">Married filing jointly/Qualifying widow(er)</button>
+							<button id="tax3" class="btn btn-large btn-block" data-toggle="button" type="radio">Married filing jointly/Qualifying widow(er)<i class="icon-ok icon-white hide"></i></button>
 						</div>
 						<div class="span6">
-							<button class="btn btn-large btn-block" type="button">Married filing separately</button>
+							<button id="tax4" class="btn btn-large btn-block" data-toggle="button" type="radio">Married filing separately<i class="icon-ok icon-white hide"></i></button>
 						</div>
+					</div>
 					</div>
 					<h2 id="question2">2. How much do you make per year?</h2>
 					<br>
@@ -50,7 +58,7 @@
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input class="span8" type="number" placeholder="Average: $42,000" min="0" >
+					    	<input id="input2" class="span8" type="number" placeholder="Average: $42,000" min="0" onKeyPress="return disableEnterKey(event)" onclick=income.value>
 					    </div>
 					  </fieldset>
 					</form>
@@ -60,7 +68,7 @@
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input class="span8" type="number" placeholder="Average: $100" min="0" >
+					    	<input id="input3" class="span8" type="number" placeholder="Average: $100" min="0" onKeyPress="return disableEnterKey(event)">
 					    </div>
 					  </fieldset>
 					</form>
@@ -70,7 +78,7 @@
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input class="span8" type="number" placeholder="Average: $50" min="0" >
+					    	<input id="input4" class="span8" type="number" placeholder="Average: $50" min="0" onKeyPress="return disableEnterKey(event)">
 					    </div>
 					  </fieldset>
 					</form>
@@ -80,7 +88,7 @@
 					  <fieldset>
 					  	<div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input class="span8" type="number" placeholder="Average: $200" min="0">
+					    	<input id="input5" class="span8" type="number" placeholder="Average: $200" min="0" onKeyPress="return disableEnterKey(event)">
 					    </div>
 					  </fieldset>
 					</form>
@@ -95,43 +103,107 @@
 	</div>
 
 	<script>
+	function setNumbers {
+		var calculator = '[.07(' +income+ '-' +taxBracket+ ')+' +taxBracketRemainder+ '] + [.02]';
+		var taxRate = .07;
+		var income = document.getElementById('input2');
+
+	}
+	
+
+	function disableEnterKey(e) {
+	     var key;
+	     if(window.event)
+	          key = window.event.keyCode;     //IE
+	     else
+	          key = e.which;     //firefox
+	     if(key == 13)
+	          return false;
+	     else
+	          return true;
+	}
+
 	$('#choice1').click(function() {
-		if ($('#choice1').not('.active')) {
-			$('#choice1').toggleClass('btn-success');
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
 			$('#choice2, #choice3').removeClass('btn-success');
-			$('#choice1 i').toggleClass('hide');
+			$('#choice1 i').removeClass('hide');
 			$('#choice2 i, #choice3 i').addClass('hide');
-			$('#detail1').toggleClass('hide');
+			$('#detail1').removeClass('hide');
 			$('#detail2, #detail3').addClass('hide');
-			$('#question5').toggleClass('muted');
+			$('#question5').addClass('muted');
+			$('#question3, #question4').removeClass('muted');
+			document.getElementById('input3').disabled=false;
+			document.getElementById('input4').disabled=false;
+			document.getElementById('input5').disabled=true;
 		};
 	});
 
 	$('#choice2').click(function() {
-		if ($('#choice1').not('.active')) {
-			$('#choice2').toggleClass('btn-success');
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
 			$('#choice1, #choice3').removeClass('btn-success');
-			$('#choice2 i').toggleClass('hide');
+			$('#choice2 i').removeClass('hide');
 			$('#choice1 i, #choice3 i').addClass('hide');
-			$('#detail2').toggleClass('hide');
-			$('#detail1, #detail3').addClass('hide');	
-			$('#question2').toggleClass('muted');
+			$('#detail2').removeClass('hide');
+			$('#detail1, #detail3').addClass('hide');
+			$('#question3, #question5, #question4').removeClass('muted');
+			document.getElementById('input3').disabled=false;
+			document.getElementById('input4').disabled=false;
+			document.getElementById('input5').disabled=false;	
 		};
 	});
 
 	$('#choice3').click(function() {
-		if ($('#choice1').not('.active')) {
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
 			$('#choice1, #choice2').removeClass('btn-success');
-			$('#choice3').toggleClass('btn-success');
+			$('#choice3 i').removeClass('hide');
 			$('#choice1 i, #choice2 i').addClass('hide');
-			$('#choice3 i').toggleClass('hide');
+			$('#detail3').removeClass('hide');
 			$('#detail1, #detail2').addClass('hide');
-			$('#detail3').toggleClass('hide');	
-			$('#question3').toggleClass('muted');
-			$('#question4').toggleClass('muted');
-			$('#question5').toggleClass('muted');
+			$('#question3, #question4, #question5').addClass('muted');
+			document.getElementById('input3').disabled=true;
+			document.getElementById('input4').disabled=true;
+			document.getElementById('input5').disabled=true;
 			};
 		});
+
+	$('#tax1').click(function() {
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
+			$('#tax2, #tax3, #tax4').removeClass('btn-success');
+			$('#tax1 i').removeClass('hide');
+			$('#tax2 i, #tax3 i, #tax4 i').addClass('hide');
+		}
+	});
+
+	$('#tax2').click(function() {
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
+			$('#tax1, #tax3, #tax4').removeClass('btn-success');
+			$('#tax2 i').removeClass('hide');
+			$('#tax1 i, #tax3 i, #tax4 i').addClass('hide');
+		}
+	});
+
+	$('#tax3').click(function() {
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
+			$('#tax1, #tax2, #tax4').removeClass('btn-success');
+			$('#tax3 i').removeClass('hide');
+			$('#tax1 i, #tax2 i, #tax4 i').addClass('hide');
+		}
+	});
+
+	$('#tax4').click(function() {
+		if ($(this).not('.active')) {
+			$(this).addClass('btn-success');
+			$('#tax1, #tax2, #tax3').removeClass('btn-success');
+			$('#tax4 i').removeClass('hide');
+			$('#tax1 i, #tax2 i, #tax3 i').addClass('hide');
+		}
+	});
 	
 	</script>
 </body>
