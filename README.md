@@ -1,0 +1,1 @@
+Simple calculator to see how potential tax code changes in NC will affect citizens. Users can choose which proposed change, or the current tax rates, as well as how they file taxes. Then, they input their estimated income and approximate amounts spent on taxed goods and services. The total will display at the top and update dynamically as user inputs change. 
