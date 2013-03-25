@@ -27,23 +27,23 @@ body{
   }
 
   .fixed {
-        position:fixed;
+    /*width: 52.1%;*/
+    position: fixed;
+    top:0;
+    z-index: 9999;
   }
-  /*.gray-box{
-      background-color:#999;
-  }*/
-  
+
   .spacer{
       margin:1.5em 0;   
   }
   
-  .container{
+ /* .container{
       width:1170px;
       margin-left:auto;
       margin-right:auto;
       background-color: white;
       padding: 10px;
-  }
+  }*/
 
   .btn-large {
     width: 100%;

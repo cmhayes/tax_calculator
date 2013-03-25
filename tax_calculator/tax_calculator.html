@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tax Calculator</title>
+	<title>NC Tax Calculator</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -11,31 +11,31 @@
 </head>
 
 <body>
-	<div class="container-fluid">
+	<div class="container">
 		<h1>Tax Calculator</h1>
 		<hr class="featurette-divider" />
-		<div class="row-fluid">
-			<div class="span7">
-				<h3>Discover what NC's tax reform options mean for you</h3>
-				<p>Description goes here</p>
+		<div class="row">
+			<div class="span12">
+				<h2>Discover what NC's tax reform options mean for you</h2>
+				<p>Republican State Senator Bob Rucho is leading an effort in the General Assembly to modernize the state's tax code. His current proposal suggests eliminating a personal income tax in favor of a flat sales tax rate of 8.05%. What does this mean for your wallet? Provide your income and some data on spending habits below to find out.</p>
 				<div class="btn-group" data-toggle="buttons-radio">
 					<button type="button" id="choice1" class="btn btn-large" data-toggle="button">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
-					<div id="detail1" class="hide" style="font-size:21px;">Description 1</div>
+					<div id="detail1" class="hide" style="font-size:14px;">Under the current tax rates, North Carolinians pay anywhere from 6-7.75%, depending on income. Tax brackets are determined by filing status and income, placing citizens into one of three tiers. Sales tax is divided into groceries and other items. Groceries are taxed at 2% while all other items are taxed at 6.75%. Services are not taxed under the current system.</div>
 					<button type="button" id="choice2" class="btn btn-large" data-toggle="button">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
-					<div id="detail2" class="hide" style="font-size:21px;">Description 2</div>
+					<div id="detail2" class="hide" style="font-size:14px;">With no income tax, all North Carolinians will pay a flat 8.05% tax on all goods and services, including groceries. Examples of services taxed: lottery, dentist visits, lawyer's fees and haircuts. This is currently the favored alternative to our current tax rates.</div>
 					<button type="button" id="choice3" class="btn btn-large data-toggle="button"">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
-					<div id="detail3" class="hide" style="font-size:21px;">Description 3</div>
+					<div id="detail3" class="hide" style="font-size:14px;">With no sales tax, all North Carolinians would pay a flat state income tax rate of 10%.</div>
 					<br>
 				</div>
-				<div id="formula" class="well"><h4>What you pay:</h4>
-					<h3 id="formula_displayed"><span id="formula_income"></span></h3>
-					<h1 id="result_displayed" class="">2839.88</h1>
+				<div id="formula" class="well"><span>What you pay:</span>
+					<span id="formula_displayed"><span id="formula_income"></span></span>
+					<span id="result_displayed"></span>
 				</div>
 				<div class="calculator well">
 					<h2 id="question1">1. How do you normally file taxes?</h2>
 					<br>
 					<div class="btn-group" data-toggle="buttons-radio">
-					<div class="row-fluid">
+					<div class="row">
 						<div class="span6">
 							<button id="tax1" class="btn btn-large btn-block" data-toggle="button" style="padding: 25px;">Single<i class="icon-ok icon-white hide"></i></button>
 						</div>
@@ -43,7 +43,7 @@
 							<button id="tax2" class="btn btn-large btn-block" data-toggle="button" type="radio">Head of Household<i class="icon-ok icon-white hide"></i></button>
 						</div>
 					</div>
-					<div class="row-fluid">
+					<div class="row">
 						<div class="span6">
 							<button id="tax3" class="btn btn-large btn-block" data-toggle="button" type="radio">Married filing jointly/Qualifying widow(er)<i class="icon-ok icon-white hide"></i></button>
 						</div>
@@ -93,26 +93,47 @@
 					  </fieldset>
 					</form>
 				</div>
+				<div class="sources well well-small">
+					<small><em>Sources: <a href="http://www.dor.state.nc.us/taxes/individual/rates.html" target="_blank">NC Tax rate schedules</a>, <a href="http://taxfoundation.org/sites/taxfoundation.org/files/docs/Tax_Foundation_Carolina_Business_Coalition_North_Carolina_Recommendations.pdf" target="_blank">Carolina Business Coalition Report on NC Tax Reform Options</a></em></small>
+				</div>
 			</div>
-			<div class="span5">
+			<!-- <div class="span5 hidden-tablet hidden-phone">
 				<div class="well">
 					graphs and visuals go here?
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
 	<script>
+	//variables for calculator/formula
 	var income;
 	var income_tax_rate;
 	var income_tax_constant;
+	var income_tax_remainder;
 	var sales_tax;
 	var grocery_tax;
 	var grocery_bill;
 	var spent_on_taxable_items;
 	var spent_on_taxable_services;
-		
-	$('#choice').click(function() {
+	var total_taxes;
+
+	//keep formula at top of screen
+	$(document).ready(function() {
+	    var s = $('#formula');
+	    var pos = s.position();                    
+	    $(window).scroll(function() {
+	        var windowpos = $(window).scrollTop();
+	        if (windowpos >= pos.top) {
+	            s.addClass('fixed');
+	        } else {
+	            s.removeClass("fixed"); 
+	        }
+		});
+	});
+
+	//make radio buttons and forms pretty, user friendly
+	$('#choice1').click(function() {
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#choice2, #choice3').removeClass('btn-success');
@@ -122,6 +143,8 @@
 			$('#detail2, #detail3').addClass('hide');
 			$('#question5').addClass('muted');
 			$('#question3, #question4').removeClass('muted');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 			document.getElementById('input3').disabled=false;
 			document.getElementById('input4').disabled=false;
 			document.getElementById('input5').disabled=true;
@@ -137,6 +160,8 @@
 			$('#detail2').removeClass('hide');
 			$('#detail1, #detail3').addClass('hide');
 			$('#question3, #question5, #question4').removeClass('muted');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 			document.getElementById('input3').disabled=false;
 			document.getElementById('input4').disabled=false;
 			document.getElementById('input5').disabled=false;	
@@ -152,6 +177,8 @@
 			$('#detail3').removeClass('hide');
 			$('#detail1, #detail2').addClass('hide');
 			$('#question3, #question4, #question5').addClass('muted');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 			document.getElementById('input3').disabled=true;
 			document.getElementById('input4').disabled=true;
 			document.getElementById('input5').disabled=true;
@@ -159,21 +186,13 @@
 		});
 
 	$('#tax1').click(function() {
-		if (income > 60000){
-			income_tax_rate = .0775;
-			income_tax_constant = 4072.5;
-		}else if (income > 12750 && income >=60000) {
-			income_tax_rate = .07;
-			income_tax_constant = 765;
-		}else{
-			income_tax_rate = .06;
-		};
-
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax2, #tax3, #tax4').removeClass('btn-success');
 			$('#tax1 i').removeClass('hide');
 			$('#tax2 i, #tax3 i, #tax4 i').addClass('hide');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 		};
 
 	});
@@ -184,6 +203,8 @@
 			$('#tax1, #tax3, #tax4').removeClass('btn-success');
 			$('#tax2 i').removeClass('hide');
 			$('#tax1 i, #tax3 i, #tax4 i').addClass('hide');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 		}
 	});
 
@@ -193,26 +214,104 @@
 			$('#tax1, #tax2, #tax4').removeClass('btn-success');
 			$('#tax3 i').removeClass('hide');
 			$('#tax1 i, #tax2 i, #tax4 i').addClass('hide');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 		}
 	});
 
 	$('#tax4').click(function() {
-
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax1, #tax2, #tax3').removeClass('btn-success');
 			$('#tax4 i').removeClass('hide');
 			$('#tax1 i, #tax2 i, #tax3 i').addClass('hide');
+			$('#formula_income').empty();
+			$('#result_displayed').empty();
 		}
 	});
 
+	//generating the formula
 	$('input').keyup(function(){ 
 		$('#formula_income').empty();
 		income = $('#input2').val();
 		grocery_bill = $('#input3').val();
 		spent_on_taxable_items = $('#input4').val();
 		spent_on_taxable_services = $('#input5').val();
-		$('#formula_income').append('['+income_tax_rate+'('+income+ ' + ' +grocery_bill+ ')]');
+		if ($('#choice1').hasClass('active')){
+			sales_tax = .0675;
+			grocery_tax = .02;
+			if ($('#tax1').hasClass('active')){
+				if (income > 60000){
+					income_tax_rate = .0775;
+					income_tax_constant = 4072.5;
+					income_tax_remainder = 60000;
+				}else if (income > 12750 && income <=60000) {
+					income_tax_rate = .07;
+					income_tax_constant = 765;
+					income_tax_remainder = 12750;
+				}else{
+					income_tax_rate = .06;
+					income_tax_constant = '';
+				};
+			}else if($('#tax2').hasClass('active')){
+				if (income > 80000){
+					income_tax_rate = .0775;
+					income_tax_constant = 5430;
+					income_tax_remainder = 80000;
+				}else if (income > 17000 && income <=80000) {
+					income_tax_rate = .07;
+					income_tax_constant = 1020;
+					income_tax_remainder = 17000;
+				}else{
+					income_tax_rate = .06;
+					income_tax_constant = '';
+				};
+			}else if ($('#tax3').hasClass('active')){
+				if (income > 100000){
+					income_tax_rate = .0775;
+					income_tax_constant = 6787.5;
+					income_tax_remainder = 100000;
+				}else if (income > 21250 && income <=100000) {
+					income_tax_rate = .07;
+					income_tax_constant = 1275;
+					income_tax_remainder = 21250;
+				}else{
+					income_tax_rate = .06;
+					income_tax_constant = '';
+				};
+			}else if ($('#tax4').hasClass('active')){
+				if (income > 50000){
+					income_tax_rate = .0775;
+					income_tax_constant = 3393.75;
+					income_tax_remainder = 50000;
+				}else if (income > 10625 && income <=50000) {
+					income_tax_rate = .07;
+					income_tax_constant = 637.5;
+					income_tax_remainder = 10625;
+				}else{
+					income_tax_rate = .06;
+					income_tax_constant = '';
+				};
+			};
+			total_taxes = (income_tax_rate*(income - income_tax_remainder) + income_tax_constant) + (grocery_tax*(12*grocery_bill)) + (sales_tax*(12*spent_on_taxable_items));
+			$('#formula_income').append('['+income_tax_rate+'('+income+ ' - ' +income_tax_remainder+ ') + ' +income_tax_constant+ '] + [' +grocery_tax+ '(12 * ' +grocery_bill+ ')] + [' +sales_tax+ '(12 * ' +spent_on_taxable_items+ ')] = ');
+		} else if ($('#choice2').hasClass('active')){
+			income_tax_rate = '';
+			income_tax_constant = '';
+			income_tax_remainder = '';
+			sales_tax = .0805;
+			total_taxes = sales_tax*(12*(spent_on_taxable_items + grocery_bill + spent_on_taxable_services));
+			$('#formula_income').append('[' +sales_tax+ '(12 * (' +grocery_bill+ ' + ' +spent_on_taxable_items+ ' + ' +spent_on_taxable_services+ '))] = ');
+		} else if ($('#choice3').hasClass('active')){
+			income_tax_rate = .1;
+			income_tax_constant = '';
+			income_tax_remainder = '';
+			sales_tax = '';
+			total_taxes = income_tax_rate*income;
+			$('#formula_income').append('['+income_tax_rate+'('+income+ ')] = ');
+		};
+		
+		$('#result_displayed').empty().append(total_taxes);
 	});
 	
 	</script>
