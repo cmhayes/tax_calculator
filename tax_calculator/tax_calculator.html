@@ -97,11 +97,6 @@
 					<small><em>Sources: <a href="http://www.dor.state.nc.us/taxes/individual/rates.html" target="_blank">NC Tax rate schedules</a>, <a href="http://taxfoundation.org/sites/taxfoundation.org/files/docs/Tax_Foundation_Carolina_Business_Coalition_North_Carolina_Recommendations.pdf" target="_blank">Carolina Business Coalition Report on NC Tax Reform Options</a></em></small>
 				</div>
 			</div>
-			<!-- <div class="span5 hidden-tablet hidden-phone">
-				<div class="well">
-					graphs and visuals go here?
-				</div>
-			</div> -->
 		</div>
 	</div>
 
@@ -233,10 +228,10 @@
 	//generating the formula
 	$('input').keyup(function(){ 
 		$('#formula_income').empty();
-		income = $('#input2').val();
-		grocery_bill = $('#input3').val();
-		spent_on_taxable_items = $('#input4').val();
-		spent_on_taxable_services = $('#input5').val();
+		income = parseInt($('#input2').val());
+		grocery_bill = parseInt($('#input3').val());
+		spent_on_taxable_items = parseInt($('#input4').val());
+		spent_on_taxable_services = parseInt($('#input5').val());
 		if ($('#choice1').hasClass('active')){
 			sales_tax = .0675;
 			grocery_tax = .02;
@@ -301,7 +296,7 @@
 			income_tax_remainder = '';
 			sales_tax = .0805;
 			total_taxes = sales_tax*(12*(spent_on_taxable_items + grocery_bill + spent_on_taxable_services));
-			$('#formula_income').append('[' +sales_tax+ '(12 * (' +grocery_bill+ ' + ' +spent_on_taxable_items+ ' + ' +spent_on_taxable_services+ '))] = ');
+			$('#formula_income').append('[' +sales_tax+ '(12(' +grocery_bill+ ' + ' +spent_on_taxable_items+ ' + ' +spent_on_taxable_services+ '))] = ');
 		} else if ($('#choice3').hasClass('active')){
 			income_tax_rate = .1;
 			income_tax_constant = '';
