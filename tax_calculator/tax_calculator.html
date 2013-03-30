@@ -11,88 +11,118 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<h1>Tax Calculator</h1>
 		<hr class="featurette-divider" />
-		<div class="row">
+		<div class="row-fluid">
 			<div class="span12">
 				<h2>Discover what NC's tax reform options mean for you</h2>
-				<p>Republican State Senator Bob Rucho is leading an effort in the General Assembly to modernize the state's tax code. His current proposal suggests eliminating a personal income tax in favor of a flat sales tax rate of 8.05%. What does this mean for your wallet? Provide your income and some data on spending habits below to find out.</p>
-				<div class="btn-group" data-toggle="buttons-radio">
+				<p>Republican State Senator Bob Rucho is leading an effort in the General Assembly to modernize the state's tax code. His current proposal suggests eliminating a personal income tax in favor of a flat sales tax rate of 8.05%. What does this mean for your wallet? Pick a rate plan, then input your income and your spending habits below to find out.</p>
+			</div>
+		</div>
+		<div class="row-fluid" id="taxRates">
+			<div class="btn-group" data-toggle="buttons-radio">
+				<div class="span4">
 					<button type="button" id="choice1" class="btn btn-large" data-toggle="button">Current Tax Rates<i class="icon-ok icon-white hide"></i></button>
 					<div id="detail1" class="hide" style="font-size:14px;">Under the current tax rates, North Carolinians pay anywhere from 6-7.75%, depending on income. Tax brackets are determined by filing status and income, placing citizens into one of three tiers. Sales tax is divided into groceries and other items. Groceries are taxed at 2% while all other items are taxed at 6.75%. Services are not taxed under the current system.</div>
+				</div>
+				<div class="span4">
 					<button type="button" id="choice2" class="btn btn-large" data-toggle="button">No Income Tax, Increased Sales Tax<i class="icon-ok icon-white hide"></i></button>
 					<div id="detail2" class="hide" style="font-size:14px;">With no income tax, all North Carolinians will pay a flat 8.05% tax on all goods and services, including groceries. Examples of services taxed: lottery, dentist visits, lawyer's fees and haircuts. This is currently the favored alternative to our current tax rates.</div>
+				</div>
+				<div class="span4">
 					<button type="button" id="choice3" class="btn btn-large data-toggle="button"">No Sales Tax, Increased Income Tax<i class="icon-ok icon-white hide"></i></button>
 					<div id="detail3" class="hide" style="font-size:14px;">With no sales tax, all North Carolinians would pay a flat state income tax rate of 10%.</div>
-					<br>
 				</div>
-				<div id="formula" class="well"><span>What you pay:</span>
-					<span id="formula_displayed"><span id="formula_income"></span></span>
-					<span id="result_displayed"></span>
+				<br>
+			</div>
+		</div>
+				<div id="formula" class="row-fluid">
+					<div class="payTax">
+						<span>What you pay:</span>
+						<span id="formula_displayed"><span id="formula_income"></span></span>
+						<span id="result_displayed"></span>
+					</div>
 				</div>
-				<div class="calculator well">
-					<h2 id="question1">1. How do you normally file taxes?</h2>
-					<br>
+		<div class="row-fluid">
+			<div class="calculator well">
+				<h3 id="question1">1. How do you normally file taxes?</h3>
+				<!--q1 buttons-->
+				<div class="row-fluid">	
 					<div class="btn-group" data-toggle="buttons-radio">
-					<div class="row">
-						<div class="span6">
-							<button id="tax1" class="btn btn-large btn-block" data-toggle="button" style="padding: 25px;">Single<i class="icon-ok icon-white hide"></i></button>
+						<div class="row-fluid">
+							<div class="span6">
+								<button id="tax1" class="btn inline btn-large btn-block" data-toggle="button">Single<i class="icon-ok icon-white hide"></i></button>
+							</div>
+							<div class="span6">
+								<button id="tax2" class="btn inline btn-large btn-block" data-toggle="button" type="radio">Head of Household<i class="icon-ok icon-white hide"></i></button>
+							</div>
 						</div>
-						<div class="span6">
-							<button id="tax2" class="btn btn-large btn-block" data-toggle="button" type="radio">Head of Household<i class="icon-ok icon-white hide"></i></button>
+						<div class="row-fluid">
+							<div class="span6">
+								<button id="tax3" class="btn inline btn-large btn-block" data-toggle="button" type="radio">Married filing jointly/Qualifying widow(er)<i class="icon-ok icon-white hide"></i></button>
+							</div>
+							<div class="span6">
+								<button id="tax4" class="btn inline btn-large btn-block" data-toggle="button" type="radio">Married filing separately<i class="icon-ok icon-white hide"></i></button>
+							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="span6">
-							<button id="tax3" class="btn btn-large btn-block" data-toggle="button" type="radio">Married filing jointly/Qualifying widow(er)<i class="icon-ok icon-white hide"></i></button>
-						</div>
-						<div class="span6">
-							<button id="tax4" class="btn btn-large btn-block" data-toggle="button" type="radio">Married filing separately<i class="icon-ok icon-white hide"></i></button>
-						</div>
-					</div>
-					</div>
-					<h2 id="question2">2. How much do you make per year?</h2>
-					<br>
+				</div>
+
+				<!--income input-->
+				<div class="row-fluid">
+					<h3 id="question2">2. How much do you make per year?</h3>
+						<form onsubmit="return false">
+						  <fieldset>
+						    <div class="input-prepend">
+						  		<span class="add-on">$</span>
+						    	<input id="input2" type="number" placeholder="Average: $42,000" min="0">
+						    </div>
+						  </fieldset>
+						</form>
+				</div>
+
+				<!--grocery input-->
+				<div class="row-fluid">
+					<h3 id="question3">3. On average, how much do you spend on groceries in a week?</h3>
+						<form onsubmit="return false">
+						  <fieldset>
+						    <div class="input-prepend">
+						  		<span class="add-on">$</span>
+						    	<input id="input3" type="number" placeholder="Average: $100" min="0">
+						    </div>
+						  </fieldset>
+						</form>
+				</div>
+
+				<!--current sales tax input-->
+				<div class="row-fluid">
+					<h3 id="question4">4. On average, how much do you spend on taxed items per week?</h3>
 					<form onsubmit="return false">
 					  <fieldset>
 					    <div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input id="input2" class="span8" type="number" placeholder="Average: $42,000" min="0">
+					    	<input id="input4" type="number" placeholder="Average: $50" min="0">
 					    </div>
 					  </fieldset>
 					</form>
-					<h2 id="question3">3. On average, how much do you spend on groceries in a week?</h2>
-					<br>
-					<form onsubmit="return false">
-					  <fieldset>
-					    <div class="input-prepend">
-					  		<span class="add-on">$</span>
-					    	<input id="input3" class="span8" type="number" placeholder="Average: $100" min="0">
-					    </div>
-					  </fieldset>
-					</form>
-					<h2 id="question4">4. On average, how much do you spend on taxed items per week?</h2>
-					<br>
-					<form onsubmit="return false">
-					  <fieldset>
-					    <div class="input-prepend">
-					  		<span class="add-on">$</span>
-					    	<input id="input4" class="span8" type="number" placeholder="Average: $50" min="0">
-					    </div>
-					  </fieldset>
-					</form>
-					<h2 id="question5">5. On average, how much do you spend on taxed services in a week?</h2> 
-					<br>
+				</div>
+
+				<!--services input-->
+				<div class="row-fluid">
+					<h3 id="question5">5. On average, how much do you spend on taxed services in a week?</h3> 
 					<form onsubmit="return false">
 					  <fieldset>
 					  	<div class="input-prepend">
 					  		<span class="add-on">$</span>
-					    	<input id="input5" class="span8" type="number" placeholder="Average: $200" min="0">
+					    	<input id="input5" type="number" placeholder="Average: $200" min="0">
 					    </div>
 					  </fieldset>
 					</form>
 				</div>
+			</div>
+		</div>
+
 				<div class="sources well well-small">
 					<small><em>Sources: <a href="http://www.dor.state.nc.us/taxes/individual/rates.html" target="_blank">NC Tax rate schedules</a>, <a href="http://taxfoundation.org/sites/taxfoundation.org/files/docs/Tax_Foundation_Carolina_Business_Coalition_North_Carolina_Recommendations.pdf" target="_blank">Carolina Business Coalition Report on NC Tax Reform Options</a></em></small>
 				</div>
@@ -115,14 +145,18 @@
 
 	//keep formula at top of screen
 	$(document).ready(function() {
-	    var s = $('#formula');
-	    var pos = s.position();                    
+	    var s = $('#taxRates');
+	    var f = $('#formula');
+	    var pos = s.position();  
+	    f.hide();                  
 	    $(window).scroll(function() {
 	        var windowpos = $(window).scrollTop();
 	        if (windowpos >= pos.top) {
-	            s.addClass('fixed');
+	        	f.show();
+	            f.addClass('fixed');
 	        } else {
-	            s.removeClass("fixed"); 
+	        	f.hide();
+	            f.removeClass('fixed'); 
 	        }
 		});
 	});
