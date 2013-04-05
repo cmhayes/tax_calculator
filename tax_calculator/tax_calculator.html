@@ -148,15 +148,15 @@
 	    var s = $('#taxRates');
 	    var f = $('#formula');
 	    var pos = s.position();
-	    $(window).resize(function (){
-	    	if ($(window).width() >= 960) {
-	    		f.show(); 
-	    	}else{
-	    		f.hide();
-	    	}
-	    });
-	    
-	                     
+
+	    $(window).hover(function() {
+			if ($(window).width() >= 960) {
+		    	f.show(); 
+		    } else {
+		    	f.hide();
+		    };
+		});
+	              
 	    $(window).scroll(function() {
 	        var windowpos = $(window).scrollTop();
 	        if (windowpos >= pos.top) {
@@ -330,21 +330,21 @@
 					income_tax_constant = '';
 				};
 			};
-			total_taxes = (income_tax_rate*(income - income_tax_remainder) + income_tax_constant) + (grocery_tax*(12*grocery_bill)) + (sales_tax*(12*spent_on_taxable_items));
+			total_taxes = parseFloat((income_tax_rate*(income - income_tax_remainder) + income_tax_constant) + (grocery_tax*(12*grocery_bill)) + (sales_tax*(12*spent_on_taxable_items))).toFixed(2);
 			$('#formula_income').append('['+income_tax_rate+'('+income+ ' - ' +income_tax_remainder+ ') + ' +income_tax_constant+ '] + [' +grocery_tax+ '(12 * ' +grocery_bill+ ')] + [' +sales_tax+ '(12 * ' +spent_on_taxable_items+ ')] = ');
 		} else if ($('#choice2').hasClass('active')){
 			income_tax_rate = '';
 			income_tax_constant = '';
 			income_tax_remainder = '';
 			sales_tax = .0805;
-			total_taxes = sales_tax*(12*(spent_on_taxable_items + grocery_bill + spent_on_taxable_services));
+			total_taxes = parseFloat(sales_tax*(12*(spent_on_taxable_items + grocery_bill + spent_on_taxable_services))).toFixed(2);
 			$('#formula_income').append('[' +sales_tax+ '(12(' +grocery_bill+ ' + ' +spent_on_taxable_items+ ' + ' +spent_on_taxable_services+ '))] = ');
 		} else if ($('#choice3').hasClass('active')){
 			income_tax_rate = .1;
 			income_tax_constant = '';
 			income_tax_remainder = '';
 			sales_tax = '';
-			total_taxes = income_tax_rate*income;
+			total_taxes = parseFloat(income_tax_rate*income).toFixed(2);
 			$('#formula_income').append('['+income_tax_rate+'('+income+ ')] = ');
 		};
 		
