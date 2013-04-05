@@ -148,14 +148,6 @@
 	    var s = $('#taxRates');
 	    var f = $('#formula');
 	    var pos = s.position();
-
-	    $(window).hover(function() {
-			if ($(window).width() >= 960) {
-		    	f.show(); 
-		    } else {
-		    	f.hide();
-		    };
-		});
 	              
 	    $(window).scroll(function() {
 	        var windowpos = $(window).scrollTop();
@@ -163,7 +155,6 @@
 	        	f.show();
 	            f.addClass('fixed');
 	        } else {
-	        	f.hide();
 	            f.removeClass('fixed'); 
 	        }
 		});
