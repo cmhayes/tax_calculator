@@ -75,6 +75,9 @@ body{
   #formula{
     background-color:#fff;
     border-radius:0px;
+    border-top:1px solid #bbb;
+    border-left:1px solid #bbb;
+    border-right:2px solid #bbb;
     border-bottom:2px solid #bbb;
     margin-bottom:10px;
   }

@@ -37,13 +37,13 @@
 				<br>
 			</div>
 		</div>
-				<div id="formula" class="row-fluid">
-					<div class="payTax">
-						<span>What you pay:</span>
-						<span id="formula_displayed"><span id="formula_income"></span></span>
-						<span id="result_displayed"></span>
-					</div>
-				</div>
+		<div id="formula" class="row-fluid">
+			<div class="payTax">
+				<span>What you pay:</span>
+				<span id="formula_displayed"><span id="formula_income"></span></span>
+				<span id="result_displayed"></span>
+			</div>
+		</div>
 		<div class="row-fluid">
 			<div class="calculator well">
 				<h3 id="question1">1. How do you normally file taxes?</h3>
@@ -147,8 +147,16 @@
 	$(document).ready(function() {
 	    var s = $('#taxRates');
 	    var f = $('#formula');
-	    var pos = s.position();  
-	    f.hide();                  
+	    var pos = s.position();
+	    $(window).resize(function (){
+	    	if ($(window).width() >= 960) {
+	    		f.show(); 
+	    	}else{
+	    		f.hide();
+	    	}
+	    });
+	    
+	                     
 	    $(window).scroll(function() {
 	        var windowpos = $(window).scrollTop();
 	        if (windowpos >= pos.top) {
