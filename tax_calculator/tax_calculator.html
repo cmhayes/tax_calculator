@@ -83,7 +83,7 @@
 				</div>
 
 				<!--grocery input-->
-				<div class="row-fluid">
+				<div id="grocery-input" class="row-fluid">
 					<h3 id="question3">3. On average, how much do you spend on groceries in a week?</h3>
 						<form onsubmit="return false">
 						  <fieldset>
@@ -96,7 +96,7 @@
 				</div>
 
 				<!--current sales tax input-->
-				<div class="row-fluid">
+				<div id="taxed-items-input"class="row-fluid">
 					<h3 id="question4">4. On average, how much do you spend on taxed items per week?</h3>
 					<form onsubmit="return false">
 					  <fieldset>
@@ -109,7 +109,7 @@
 				</div>
 
 				<!--services input-->
-				<div class="row-fluid">
+				<div id="services-input" class="row-fluid">
 					<h3 id="question5">5. On average, how much do you spend on taxed services in a week?</h3> 
 					<form onsubmit="return false">
 					  <fieldset>
@@ -163,36 +163,39 @@
 	//make radio buttons and forms pretty, user friendly
 	$('#choice1').click(function() {
 		if ($(this).not('.active')) {
+			// calculate();
 			$(this).addClass('btn-success');
 			$('#choice2, #choice3').removeClass('btn-success');
-			$('#choice1 i').removeClass('hide');
-			$('#choice2 i, #choice3 i').addClass('hide');
-			$('#detail1').removeClass('hide');
-			$('#detail2, #detail3').addClass('hide');
-			$('#question5').addClass('muted');
-			$('#question3, #question4').removeClass('muted');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
-			document.getElementById('input3').disabled=false;
-			document.getElementById('input4').disabled=false;
-			document.getElementById('input5').disabled=true;
+			$('#choice1 i, #detail1, #grocery-input, #taxed-items-input').show();
+			$('#choice2 i, #choice3 i, #detail2, #detail3, #services-input').hide();
+			// $('#detail1').show();
+			// $('#detail2, #detail3').hide();
+			// $('#question5').addClass('muted');
+			// $('#question3, #question4').removeClass('muted');
+			// $('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
+			// $('#services-input').hide();
+			// document.getElementById('input3').disabled=false;
+			// document.getElementById('input4').disabled=false;
+			// document.getElementById('input5').disabled=true;
 		};
 	});
 
 	$('#choice2').click(function() {
 		if ($(this).not('.active')) {
+			// calculate();
 			$(this).addClass('btn-success');
 			$('#choice1, #choice3').removeClass('btn-success');
-			$('#choice2 i').removeClass('hide');
-			$('#choice1 i, #choice3 i').addClass('hide');
-			$('#detail2').removeClass('hide');
-			$('#detail1, #detail3').addClass('hide');
-			$('#question3, #question5, #question4').removeClass('muted');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
-			document.getElementById('input3').disabled=false;
-			document.getElementById('input4').disabled=false;
-			document.getElementById('input5').disabled=false;	
+			$('#choice2 i, #detail2, #services-input, #taxed-items-input, #grocery-input').show();
+			$('#choice1 i, #choice3 i, #detail1, #detail3').hide();
+			// $('#detail2').show();
+			// $('#detail1, #detail3').hide();
+			// $('#question3, #question5, #question4').removeClass('muted');
+			// $('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
+			// document.getElementById('input3').disabled=false;
+			// document.getElementById('input4').disabled=false;
+			// document.getElementById('input5').disabled=false;	
 		};
 	});
 
@@ -200,16 +203,17 @@
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#choice1, #choice2').removeClass('btn-success');
-			$('#choice3 i').removeClass('hide');
-			$('#choice1 i, #choice2 i').addClass('hide');
-			$('#detail3').removeClass('hide');
-			$('#detail1, #detail2').addClass('hide');
-			$('#question3, #question4, #question5').addClass('muted');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
-			document.getElementById('input3').disabled=true;
-			document.getElementById('input4').disabled=true;
-			document.getElementById('input5').disabled=true;
+			$('#choice3 i, #detail3').show();
+			$('#choice1 i, #choice2 i, #detail1, #detail2, #grocery-input, #taxed-items-input, #services-input').hide();
+			// $('#detail3').show();
+			// $('#detail1, #detail2').hide();
+			// $('#question3, #question4, #question5').addClass('muted');
+			// $('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
+			// $('#input3, #question3').hide();
+			// document.getElementById('input3').disabled=true;
+			// document.getElementById('input4').disabled=true;
+			// document.getElementById('input5').disabled=true;
 			};
 		});
 
@@ -217,10 +221,10 @@
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax2, #tax3, #tax4').removeClass('btn-success');
-			$('#tax1 i').removeClass('hide');
-			$('#tax2 i, #tax3 i, #tax4 i').addClass('hide');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
+			$('#tax1 i').show();
+			$('#tax2 i, #tax3 i, #tax4 i').hide();
+			// $('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
 		};
 
 	});
@@ -229,10 +233,10 @@
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax1, #tax3, #tax4').removeClass('btn-success');
-			$('#tax2 i').removeClass('hide');
-			$('#tax1 i, #tax3 i, #tax4 i').addClass('hide');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
+			$('#tax2 i').show();
+			$('#tax1 i, #tax3 i, #tax4 i').hide();
+			$('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
 		}
 	});
 
@@ -240,10 +244,10 @@
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax1, #tax2, #tax4').removeClass('btn-success');
-			$('#tax3 i').removeClass('hide');
-			$('#tax1 i, #tax2 i, #tax4 i').addClass('hide');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
+			$('#tax3 i').show();
+			$('#tax1 i, #tax2 i, #tax4 i').hide();
+			$('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
 		}
 	});
 
@@ -251,16 +255,16 @@
 		if ($(this).not('.active')) {
 			$(this).addClass('btn-success');
 			$('#tax1, #tax2, #tax3').removeClass('btn-success');
-			$('#tax4 i').removeClass('hide');
-			$('#tax1 i, #tax2 i, #tax3 i').addClass('hide');
-			$('#formula_income').empty();
-			$('#result_displayed').empty();
+			$('#tax4 i').show();
+			$('#tax1 i, #tax2 i, #tax3 i').hide();
+			$('#formula_income, #result_displayed').empty();
+			// $('#result_displayed').empty();
 		}
 	});
 
 	//generating the formula
-	$('input').keyup(function(){ 
-		$('#formula_income').empty();
+	$('input, button').bind('keyup click', function() { 
+		$('#formula_income, #result_displayed').empty();
 		income = parseInt($('#input2').val());
 		grocery_bill = parseInt($('#input3').val());
 		spent_on_taxable_items = parseInt($('#input4').val());
@@ -338,7 +342,7 @@
 			total_taxes = parseFloat(income_tax_rate*income).toFixed(2);
 			$('#formula_income').append('['+income_tax_rate+'('+income+ ')] = ');
 		};
-		
+
 		$('#result_displayed').empty().append(total_taxes);
 	});
 	
