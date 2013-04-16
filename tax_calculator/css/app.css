@@ -1,6 +1,7 @@
 body{
       margin:0;
-  }
+      margin-bottom: 100px; 
+ }
 
   a {
     text-decoration: none;
@@ -20,6 +21,11 @@ body{
     border-radius: 1px;
   }
 
+
+  .container-fluid{
+    max-width:1200px;
+    margin:0px auto;
+  }
   nav li a:hover, nav li a:active {
     color: #fff;
     background: #40bfe8;
@@ -72,7 +78,7 @@ body{
     padding:15px;
   }
 
-  #formula{
+  /*#formula{
     background-color:#fff;
     border-radius:0px;
     border-top:1px solid #bbb;
@@ -80,6 +86,45 @@ body{
     border-right:2px solid #bbb;
     border-bottom:2px solid #bbb;
     margin-bottom:10px;
+  }*/
+
+  #top-area{
+  border-bottom: 3px solid #668198;
+  padding-bottom:0px;
   }
+
+  #top-area small{
+    color:#002748;
+    margin:0px;
+  }
+
+  @media (max-width: 767px) { 
+    #top-area{
+      margin:0px -20px;
+      padding-top:0px;
+    }
+  }
+  @media (max-width: 500px) { 
+    #top-area h1{
+      font-size:32px;
+    }
+    #top-area img{
+      width:130px;
+      padding-top:30px;
+    }
+  }
+
+  #top-wrapper, #formula-wrapper{
+    max-width:1200px;
+    margin:0px auto;
+  }
+
+#top-hr{
+    margin-top:0px;
+  }
+
+#taxRates{
+  margin-bottom: 20px;
+}
 
 
