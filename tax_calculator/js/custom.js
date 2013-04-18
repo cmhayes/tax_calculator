@@ -67,10 +67,10 @@
 		var this_id = $(this).attr('id'); 
 		$('#formula_income, #result_displayed').empty();
 
-		if($('#input2').val()){	income 		 				= parseInt($('#input2').val());}
-		if($('#input3').val()){	grocery_bill 				= parseInt($('#input3').val());}
-		if($('#input4').val()){	spent_on_taxable_items 		= parseInt($('#input4').val());}
-		if($('#input5').val()){	spent_on_taxable_services 	= parseInt($('#input5').val());}
+		if($('#input2').val()){	income 		 				= parseInt($('#input2').val().replace(/,/g, ""));}
+		if($('#input3').val()){	grocery_bill 				= parseInt($('#input3').val().replace(/,/g, ""));}
+		if($('#input4').val()){	spent_on_taxable_items 		= parseInt($('#input4').val().replace(/,/g, ""));}
+		if($('#input5').val()){	spent_on_taxable_services 	= parseInt($('#input5').val().replace(/,/g, ""));}
 		
 
 		/* Start filing status function */
